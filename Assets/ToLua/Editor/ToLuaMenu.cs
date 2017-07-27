@@ -681,7 +681,7 @@ public static class ToLuaMenu
                 BindType bt = backupList.Find((p) => { return p.type == t1; });
                 if (bt == null)
                 {
-                    Debugger.LogWarning(string.Format("type: {0} in dynamicList but not find in allTypeList !!", bt.name));
+                    Debugger.LogWarning("type: {0} in dynamicList but not find in allTypeList !!", t1.FullName);
                     continue;
                 }
                 sb.AppendFormat("\t\tL.AddPreLoad(\"{0}\", LuaOpen_{1}, typeof({0}));\r\n", bt.name, bt.wrapName);
