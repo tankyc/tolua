@@ -679,6 +679,11 @@ public static class ToLuaMenu
             {
                 Type t1 = CustomSettings.dynamicList[i];
                 BindType bt = backupList.Find((p) => { return p.type == t1; });
+                if (bt == null)
+                {
+                    Debugger.LogWarning(string.Format("type: {0} in dynamicList but not find in allTypeList !!", bt.name));
+                    continue;
+                }
                 sb.AppendFormat("\t\tL.AddPreLoad(\"{0}\", LuaOpen_{1}, typeof({0}));\r\n", bt.name, bt.wrapName);
             }
 
@@ -754,6 +759,8 @@ public static class ToLuaMenu
 
     static void GenPreLoadFunction(BindType bt, StringBuilder sb)
     {
+        if(bt == null) return;
+        
         string funcName = "LuaOpen_" + bt.wrapName;
 
         sb.AppendLineEx("\r\n\t[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]");
